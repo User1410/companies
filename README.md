@@ -2,10 +2,15 @@
 
 ## Install
 
-`php artisan key:generate`
-`composer install`
-`php artisan jwt:secret`
-`php artisan migrate --seed`
+```
+php artisan key:generate
+
+composer install
+
+php artisan jwt:secret
+
+php artisan migrate --seed
+```
 
 ## Config
 
@@ -30,7 +35,7 @@
 
 **Request**
 
-`POST /auth/login`
+`POST /login`
 
 **Body**
 
@@ -85,7 +90,8 @@ Returns companies, uses laravel default pagination. Paginations set to default 1
         },
         ...
     ]
-...laravelPagination
+    "meta": {...}
+    "links": {...}
 ]
 ```
 
@@ -210,7 +216,8 @@ Returns employees, uses laravel default pagination. Paginations set to default 1
         },
         ...
     ]
-...laravelPagination
+    "meta": {...}
+    "links": {...}
 ]
 ```
 
