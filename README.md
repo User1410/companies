@@ -28,10 +28,9 @@ php artisan migrate --seed
 "Accept": "application/json"
 ```
 
+# Prefix auth
 
 ## Authentication
-
-#### Prefix auth
 
 **Request**
 
@@ -53,9 +52,9 @@ php artisan migrate --seed
 }
 ```
 
-## Companies
+# Prefix api
 
-### Prefix api
+## Companies
 
 ### index
 
