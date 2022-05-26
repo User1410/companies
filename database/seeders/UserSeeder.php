@@ -9,12 +9,6 @@ use App\Models\Role;
 
 class UserSeeder extends Seeder
 {
-    private $roles;
-
-    public function __construct()
-    {
-        $this->roles = Role::all();
-    }
     /**
      * Run the database seeds.
      *
@@ -26,7 +20,9 @@ class UserSeeder extends Seeder
             'name' => 'administrator',
             'email' => 'admin@admin.com',
             'password' => Hash::make('password'),
-            'role_id' => $this->roles->firstWhere('name', 'admin')->id
+            'is_admin' => true
         ]);
+
+        User::factory()->create(['is_admin' => false]);
     }
 }
