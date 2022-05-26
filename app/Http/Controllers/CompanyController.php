@@ -5,10 +5,17 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Models\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Notifications\CompanyCreated;
 
 class CompanyController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Company::class, 'company');
+    }
+
     public function index()
     {
         return response()->json(Company::paginate(10));
@@ -26,6 +33,8 @@ class CompanyController extends Controller
             'logo' => $filepath,
             'website' => $request->input('website')
         ]);
+
+        Auth::user()->notify(new CompanyCreated($company));
 
         return response()->json(['success' => "Company \"$company->name\" was created successfuly"]);
     }
