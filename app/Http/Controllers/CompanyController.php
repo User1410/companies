@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCompanyRequest;
+use App\Http\Resources\CompanyResource;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +19,7 @@ class CompanyController extends Controller
 
     public function index()
     {
-        return response()->json(Company::paginate(10));
+        return CompanyResource::collection(Company::paginate(10));
     }
 
     public function store(StoreCompanyRequest $request)
