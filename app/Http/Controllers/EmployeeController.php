@@ -16,11 +16,9 @@ class EmployeeController extends Controller
     }
 
     public function index()
-    {
-        $employees = Employee::with('company')->paginate(10);
-        
-        return response()->json(
-            EmployeeResource::collection($employees)
+    {    
+        return EmployeeResource::collection(
+            Employee::with('company')->paginate(10)
         );
     }
 

@@ -52,4 +52,9 @@ class CompanyPolicy
             : Response::deny("Not enough permissions to create company");
     }
 
+    public function viewAny(User $user)
+    {
+        return true;
+    }
+
 }

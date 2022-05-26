@@ -1,64 +1,305 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# mini-CRM
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Install
 
-## About Laravel
+`php artisan key:generate`
+`composer install`
+`php artisan jwt:secret`
+`php artisan migrate --seed`
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Config
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### .env
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+`QUEUE_CONNECTION=database`
+`MAIL_ADDRESS=system@info.com`
 
-## Learning Laravel
+## REST API
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+**Make sure to have headers:**
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```
+"Content_Type": "application/json"
+"Accept": "application/json"
+```
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### Authentication
 
-### Premium Partners
+#### Prefix auth
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+**Request**
 
-## Contributing
+`POST /auth/login`
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**Body**
 
-## Code of Conduct
+`email` **Required**
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+`password` **Required**
 
-## Security Vulnerabilities
+**Response**
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```
+{
+    "access_token": "string",
+    "token_type": "Bearer",
+    "expires_at": 1653605394
+}
+```
 
-## License
+## Companies
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Prefix api
+
+#### index
+
+**Authorization**
+
+none
+
+**Request**
+
+`GET /companies`
+
+**Headers**
+
+`"Authorization": "Bearer " + access_token`
+
+**Description**
+
+Returns companies, uses laravel default pagination. Paginations set to default 10 per page.
+
+**Response**
+
+```
+"data": [
+        {
+            "id": 1,
+            "name": "DuBuque, Johnson and Kertzmann",
+            "email": "breitenberg.marjolaine@example.net",
+            "logo": "628fe21aefe02pAtTyJdlQbxGaG1HC.png",
+            "website": "https://macejkovic.com/et-aut-sequi-soluta-aspernatur-voluptatem-accusantium.html",
+            "created_at": "2022-05-26T20:25:08.000000Z",
+            "updated_at": "2022-05-26T20:25:08.000000Z"
+        },
+        ...
+    ]
+...laravelPagination
+]
+```
+
+#### create
+
+**Authorization**
+
+admin
+
+**Request**
+
+`POST /companies`
+
+**Body**
+
+`name` - company name **Required**
+
+`email`
+
+`logo` - file img
+
+`website`
+
+**Headers**
+
+`"Authorization": "Bearer " + access_token`
+
+**Response**
+
+```
+{
+    "success": "Company \"company name\" was created successfuly"
+}
+```
+
+#### update
+
+**Authorization**
+
+admin
+
+**Request**
+
+`PUT /companies/{company_id}`
+
+**Body**
+
+`name` - company name **Required**
+
+`email`
+
+`logo` - file img
+
+`website`
+
+**Headers**
+
+`"Authorization": "Bearer " + access_token`
+
+**Response**
+
+```
+{
+    "success": "Company updated successfuly"
+}
+```
+
+#### delete
+
+**Authorization**
+
+admin
+
+**Request**
+
+`DELETE /companies/{company_id}`
+
+**Headers**
+
+`"Authorization": "Bearer " + access_token`
+
+**Response**
+
+```
+{
+    "success": "Company \"Marianne Little\" deleted successfuly"
+}
+```
+
+## Employees
+
+#### index
+
+**Authorization**
+
+none
+
+**Request**
+
+`GET /employees`
+
+**Headers**
+
+`"Authorization": "Bearer " + access_token`
+
+**Description**
+
+Returns employees, uses laravel default pagination. Paginations set to default 10 per page.
+
+**Response**
+
+```
+"data": [
+        {
+            "id": 1,
+            "first_name": "Marianne",
+            "last_name": "Little",
+            "email": "geovanny24@example.net",
+            "phone": "279-825-8161",
+            "company_id": 19,
+            "company_name": "Kulas-Morissette"
+        },
+        ...
+    ]
+...laravelPagination
+]
+```
+
+#### create
+
+**Authorization**
+
+admin
+
+**Request**
+
+`POST /employees`
+
+**Body**
+
+`first_name` **Required**
+
+`last_name` **Required**
+
+`email`
+
+`phone`
+
+`company_id`
+
+**Headers**
+
+`"Authorization": "Bearer " + access_token`
+
+**Response**
+
+```
+{
+    "success": "Employee \"HAHA HA muhahah\" successfuly created"
+}
+```
+
+#### update
+
+**Authorization**
+
+admin
+
+**Request**
+
+`PUT /employees/{employee_id}`
+
+**Body**
+
+`first_name` 
+
+`last_name`
+
+`email`
+
+`phone`
+
+`company_id`
+
+**Headers**
+
+`"Authorization": "Bearer " + access_token`
+
+**Response**
+
+```
+{
+    "success": "Employee updated successfuly"
+}
+```
+
+#### delete
+
+**Authorization**
+
+admin
+
+**Request**
+
+`DELETE /employees/{employee_id}`
+
+**Headers**
+
+`"Authorization": "Bearer " + access_token`
+
+**Response**
+
+```
+{
+    "success": "Employee \"Marianne Little\" deleted successfuly"
+}
+```

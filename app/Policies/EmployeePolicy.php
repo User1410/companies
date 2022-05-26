@@ -52,4 +52,8 @@ class EmployeePolicy
             : Response::deny("Not enough permissions to delete employee");
     }
 
+    public function viewAny(User $user)
+    {
+        return true;
+    }
 }
