@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Employee;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class EmployeePolicy
 {
@@ -18,7 +19,9 @@ class EmployeePolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->is_admin 
+            ? Response::allow()
+            : Response::deny("Not enough permissions to create employee");
     }
 
     /**
@@ -30,7 +33,9 @@ class EmployeePolicy
      */
     public function update(User $user, Employee $employee)
     {
-        //
+        return $user->is_admin 
+            ? Response::allow()
+            : Response::deny("Not enough permissions to update employee");
     }
 
     /**
@@ -42,30 +47,9 @@ class EmployeePolicy
      */
     public function delete(User $user, Employee $employee)
     {
-        //
+        return $user->is_admin 
+            ? Response::allow()
+            : Response::deny("Not enough permissions to delete employee");
     }
 
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Employee  $employee
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function restore(User $user, Employee $employee)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Employee  $employee
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function forceDelete(User $user, Employee $employee)
-    {
-        //
-    }
 }
