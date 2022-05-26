@@ -29,7 +29,7 @@ php artisan migrate --seed
 ```
 
 
-### Authentication
+## Authentication
 
 #### Prefix auth
 
@@ -57,7 +57,7 @@ php artisan migrate --seed
 
 ### Prefix api
 
-#### index
+### index
 
 **Authorization**
 
@@ -95,7 +95,7 @@ Returns companies, uses laravel default pagination. Paginations set to default 1
 ]
 ```
 
-#### create
+### create
 
 **Authorization**
 
@@ -127,7 +127,7 @@ admin
 }
 ```
 
-#### update
+### update
 
 **Authorization**
 
@@ -159,7 +159,7 @@ admin
 }
 ```
 
-#### delete
+### delete
 
 **Authorization**
 
@@ -183,7 +183,7 @@ admin
 
 ## Employees
 
-#### index
+### index
 
 **Authorization**
 
@@ -221,7 +221,7 @@ Returns employees, uses laravel default pagination. Paginations set to default 1
 ]
 ```
 
-#### create
+### create
 
 **Authorization**
 
@@ -255,7 +255,7 @@ admin
 }
 ```
 
-#### update
+### update
 
 **Authorization**
 
@@ -289,7 +289,7 @@ admin
 }
 ```
 
-#### delete
+### delete
 
 **Authorization**
 
