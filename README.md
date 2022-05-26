@@ -51,7 +51,11 @@ php artisan migrate --seed
     "expires_at": 1653605394
 }
 ```
-
+**Login with**
+```
+email: "admin@admin.com,
+password: "password"
+```
 # Prefix api
 
 ## Companies
