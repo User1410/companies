@@ -19,6 +19,10 @@ php artisan migrate --seed
 `QUEUE_CONNECTION=database`
 `MAIL_ADDRESS=system@info.com`
 
+### Run queues
+
+`php artisan queue:work`
+
 ## REST API
 
 **Make sure to have headers:**
@@ -121,6 +125,10 @@ admin
 **Headers**
 
 `"Authorization": "Bearer " + access_token`
+
+**Description**
+
+Creates company. Sends email notification to record creator. 
 
 **Response**
 
