@@ -8,8 +8,9 @@ Route::prefix('auth')->group(function(){
 });
 
 Route::group(['middleware' => 'auth'], function(){
-    
+
     Route::apiResources([
-        'companies' => \App\Http\Controllers\CompanyController::class
+        'companies' => \App\Http\Controllers\CompanyController::class,
+        'employees' => \App\Http\Controllers\EmployeeController::class
     ]);
 });
